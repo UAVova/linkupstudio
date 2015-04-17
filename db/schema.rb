@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625201711) do
+ActiveRecord::Schema.define(version: 20150625201714) do
+
+  create_table "actions", force: :cascade do |t|
+    t.string "name", limit: 255
+  end
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "entity_id",             limit: 4
@@ -31,10 +35,9 @@ ActiveRecord::Schema.define(version: 20150625201711) do
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.string  "action",        limit: 255
+    t.integer "action_id",     limit: 4
     t.string  "subject_class", limit: 255
     t.integer "subject_id",    limit: 4
-    t.integer "group_id",      limit: 4
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -49,6 +52,11 @@ ActiveRecord::Schema.define(version: 20150625201711) do
   end
 
   add_index "pictures", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+
+  create_table "table_group_permissions", force: :cascade do |t|
+    t.integer "permission_id", limit: 4
+    t.integer "group_id",      limit: 4
+  end
 
   create_table "task_statuses", force: :cascade do |t|
     t.string   "title",       limit: 255
@@ -88,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150625201711) do
     t.string   "telephone",              limit: 255
     t.string   "uid",                    limit: 255
     t.string   "provider",               limit: 255
-    t.integer  "group",                  limit: 4
+    t.integer  "group",                  limit: 4,   default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

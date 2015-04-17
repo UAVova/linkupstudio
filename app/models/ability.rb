@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     user = User.new if user.nil?
     can do |action, subject_class, subject|
-      user.group.permissions.where(:action => action).any? do |permission|
+      user.group.permissions.where(:action_id => Action.find_by_name(action).id).any? do |permission|
         permission.subject_class == subject_class.to_s &&
           (subject.nil? || permission.subject_id.nil? || permission.subject_id == subject.id)
       end
