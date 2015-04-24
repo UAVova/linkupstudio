@@ -1,7 +1,7 @@
-<%= form_for @task, html: { class: "col-xs-9 form-horizontal" } do |f| %>
+<%= form_for @task, html: { multipart: true, class: "col-xs-9 form-horizontal" } do |f| %>
   <% if @task.errors.any? %>
     <div id="errors_explanation">
-      <h2> <%= pluralize(@tasks.errors.count, "error") %> need to be fixed </h2>
+      <h2> <%= pluralize(@task.errors.count, "error") %> need to be fixed </h2>
       <ul>
         <% @task.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -29,6 +29,16 @@
         <p class="help-block">Please, provide description that most fully describes your problem</p>
       </div>
     </div>
+    <%= f.fields_for :picture, Picture.new do |t| %>
+      <div class="control-group">
+        <!-- Username -->
+        <%= t.label :image, "You can attach image here", class: "control-label" %>
+        <div class="controls">
+          <%= t.file_field :image %>
+          <p class="help-block">Only images is allowed for uploading</p>
+        </div>
+      </div>
+    <% end %>
  
     <div class="control-group">
       <!-- Button -->

@@ -32,6 +32,8 @@ gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 # Phone number validation
 gem 'phonelib'
+# Paperclip gem to manage attachments
+gem 'paperclip'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
