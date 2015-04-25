@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-  before_filter :authenticate_user!, :except => :index
 
   def index
   	@tasks = Task.all.order("id DESC")
@@ -7,6 +6,7 @@ class TasksController < ApplicationController
 
   def show
   	@task = Task.find_by_token params[:id]
+    authorize! :read, @task
   end
 
   def new

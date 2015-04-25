@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625135026) do
+ActiveRecord::Schema.define(version: 20150625201711) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "entity_id",             limit: 4
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20150625135026) do
   end
 
   add_index "attachments", ["entity_type", "entity_id"], name: "index_attachments_on_entity_type_and_entity_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string "title", limit: 255
+  end
+
+  create_table "permissions", force: :cascade do |t|
+    t.string  "action",        limit: 255
+    t.string  "subject_class", limit: 255
+    t.integer "subject_id",    limit: 4
+    t.integer "group_id",      limit: 4
+  end
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "imageable_id",       limit: 4
@@ -77,6 +88,7 @@ ActiveRecord::Schema.define(version: 20150625135026) do
     t.string   "telephone",              limit: 255
     t.string   "uid",                    limit: 255
     t.string   "provider",               limit: 255
+    t.integer  "group",                  limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
