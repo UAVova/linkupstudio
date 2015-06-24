@@ -1,0 +1,40 @@
+<%= form_for @task, html: { class: "col-xs-9 form-horizontal" } do |f| %>
+  <% if @task.errors.any? %>
+    <div id="errors_explanation">
+      <h2> <%= pluralize(@tasks.errors.count, "error") %> need to be fixed </h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  <fieldset>
+    <div id="legend">
+      <legend class="">Create new task</legend>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <%= f.label :title, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :title, class: "form-control" %>
+        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+      </div>
+    </div>
+    <div class="control-group">
+      <!-- Username -->
+      <%= f.label :content, "Describe your problem", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_area :content, rows: 10, class: "form-control" %>
+        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <%= f.submit "Submit", class: "btn btn-success btn-lg btn-block" %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

@@ -38,6 +38,13 @@
     <div id="main-container" class="container">
       <div class="row">
         <%= render 'layouts/sidebar' %>
+        <% flash.each do |type, msg| %>
+          <div class="col-xs-9">
+            <div class="alert alert-<%= type %>" role="alert">
+              <%= msg %>
+            </div>
+          </div>
+        <% end %>
         <div class="col-xs-9">
           <%= yield %>
         </div>
