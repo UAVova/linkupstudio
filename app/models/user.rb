@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   has_many :tasks
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  validates :telephone, phone: true, length: { maximum: 25 }
-  validates :username,  format: { with: /\A[a-zA-Z0-9]+\Z/ }, length: { minimum: 3, maximum: 12 }
+  validates :telephone, presence: true, phone: true, 
+  									    length: { maximum: 25 }
+  validates :username,  presence: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }, 
+  									    length: { minimum: 3, maximum: 12 }
 end
