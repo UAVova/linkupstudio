@@ -21,7 +21,7 @@
         <p class="help-block">Please provide your E-mail</p>
       </div>
     </div>
- 
+
     <div class="control-group">
       <!-- Password-->
       <%= f.label :telephone, class: "control-label" %>
@@ -31,6 +31,7 @@
       </div>
     </div>
 
+    <% if resource.password_required? %>
     <div class="control-group">
       <!-- Password-->
       <%= f.label :password, class: "control-label" %>
@@ -39,6 +40,7 @@
         <p class="help-block">Password should be at least 4 characters</p>
       </div>
     </div>
+    
  
     <div class="control-group">
       <!-- Password -->
@@ -48,7 +50,8 @@
         <p class="help-block"><%= "Minimum password length is #{@minimum_password_length} symbols" if @validatable %></p>
       </div>
     </div>
- 
+    <% end %>
+    
     <div class="control-group">
       <!-- Button -->
       <div class="controls">

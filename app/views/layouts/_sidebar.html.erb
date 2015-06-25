@@ -9,8 +9,11 @@
     <%= f.label :Password %>
     <%= f.password_field :password, class: "form-control" %>
   </div>
-    <%= f.submit 'Sign in' %>
+    <%= f.submit 'Sign in', class: "btn btn-success btn-block" %>
   <% end %> 
+  <%= link_to "Google +", user_omniauth_authorize_path(:google_oauth2)%>
+  <%= link_to "Facebook", user_omniauth_authorize_path(:facebook)%>
+  <%= link_to "Vkontake", user_omniauth_authorize_path(:vkontakte)%>
   <% else %>
     Hello <%= current_user.username %>!
     <p><%= link_to "Log out", destroy_user_session_path, :method => :delete %></p>
