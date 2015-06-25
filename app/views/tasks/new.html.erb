@@ -29,18 +29,28 @@
         <p class="help-block">Please, provide description that most fully describes your problem</p>
       </div>
     </div>
+    <h4>Have some images? Attach them here:</h4>
+    <div class="control-group">
     <%= f.fields_for :pictures, Picture.new do |t| %>
-      <div class="control-group">
-        <!-- Username -->
-        <%= t.label :image, "You can attach image here", class: "control-label" %>
         <div class="controls">
           <%= t.file_field :image %>
           <p class="help-block">Only images is allowed for uploading</p>
         </div>
-      </div>
     <% end %>
-    <p><%= f.link_to_add "Add more image", :pictures %>
- 
+    <p><%= f.link_to_add "Add more image", :pictures %></p>
+    </div>
+
+    <h4>Maybe you have some file? We accept them to::</h4>
+    <div class="control-group">
+    <%= f.fields_for :attachments, Attachment.new do |d| %>
+        <div class="controls">
+          <%= d.file_field :document %>
+          <p class="help-block">Only text documents is allowed for uploading</p>
+        </div>
+    <% end %>
+    <p><%= f.link_to_add "Add more image", :attachments %></p>
+    </div>
+
     <div class="control-group">
       <!-- Button -->
       <div class="controls">

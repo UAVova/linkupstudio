@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625125039) do
+ActiveRecord::Schema.define(version: 20150625135026) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "entity_id",             limit: 4
+    t.string   "entity_type",           limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "document_file_name",    limit: 255
+    t.string   "document_content_type", limit: 255
+    t.integer  "document_file_size",    limit: 4
+    t.datetime "document_updated_at"
+  end
+
+  add_index "attachments", ["entity_type", "entity_id"], name: "index_attachments_on_entity_type_and_entity_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "imageable_id",       limit: 4
