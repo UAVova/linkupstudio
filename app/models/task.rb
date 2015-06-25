@@ -1,4 +1,5 @@
 class Task < ActiveRecord::Base
+  include Tokenable
   belongs_to :user
   belongs_to :status, foreign_key: "status"
   has_many :pictures, :as => :imageable
