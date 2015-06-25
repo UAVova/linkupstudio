@@ -91,6 +91,7 @@ GEM
     minitest (5.7.0)
     multi_json (1.11.1)
     mysql2 (0.3.18)
+    nested_form (0.3.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -179,6 +180,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
+  nested_form
   paperclip
   phonelib
   rails (= 4.2.1)

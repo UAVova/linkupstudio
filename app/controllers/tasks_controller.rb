@@ -18,7 +18,7 @@ class TasksController < ApplicationController
   private
 
     def task_params
-      params.require(:task).permit(:title, :content, :avatar, picture_attributes: [:image] )
+      params.require(:task).permit(:title, :content, :avatar, pictures_attributes: [:image] )
     end
 
 end

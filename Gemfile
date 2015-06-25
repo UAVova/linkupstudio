@@ -34,6 +34,8 @@ gem 'autoprefixer-rails'
 gem 'phonelib'
 # Paperclip gem to manage attachments
 gem 'paperclip'
+# Nested forms gem
+gem 'nested_form'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
