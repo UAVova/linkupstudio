@@ -1,5 +1,5 @@
 <% @tasks.each do |task| %>
-<h2><%= link_to task.title, task %></h2>
+<h2><%= link_to task.title, task_path(:id => task.token) %></h2>
 <p class="lead">by <%= link_to task.user.username, task.user %></p>
 <p><span class="glyphicon glyphicon-time"></span> <%= task.created_at.strftime("Posted on %d/%m/%Y") %> at <%= task.created_at.strftime("%H:%M") %> </p>
 <p class="content"><%= task.content %></p>
