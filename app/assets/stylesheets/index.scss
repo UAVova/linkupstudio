@@ -7,3 +7,18 @@ body {
 p.content {
 	word-break: break-all;
 }
+div.task
+{
+	background: none repeat scroll 0% 0% white;
+	box-shadow: 1px 1px 5px #B1B1B1;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+div.task>h2
+{
+	margin-top: 0px;
+}
+p.task-details
+{
+	font-size: 12px;
+}

@@ -6,7 +6,7 @@ class Ability
     if user.role && (respond_to? user.role)
       self.send(user.role)
     else
-      
+      can :see, :tasks
     end
   end
 

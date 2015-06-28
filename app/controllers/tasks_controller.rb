@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
   def index
-  	@tasks = Task.all.order("id DESC")
+  	@tasks = Task.where("state = 2").order("id DESC")
     authorize! :see, :tasks
   end
 
