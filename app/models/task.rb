@@ -1,7 +1,7 @@
 class Task < ActiveRecord::Base
   include Tokenable
   belongs_to :user
-  belongs_to :status, foreign_key: "status"
+  belongs_to :task_state, foreign_key: "state"
   has_many  :pictures, :as => :imageable
   has_many  :attachments,    :as => :entity
   accepts_nested_attributes_for :pictures

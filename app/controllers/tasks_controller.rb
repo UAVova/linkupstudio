@@ -2,11 +2,12 @@ class TasksController < ApplicationController
 
   def index
   	@tasks = Task.all.order("id DESC")
+    authorize! :see, :tasks
   end
 
   def show
   	@task = Task.find_by_token params[:id]
-    authorize! :read, @task
+    authorize! :show, @task
   end
 
   def new

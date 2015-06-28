@@ -4,7 +4,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :title
       t.text :content
       t.integer :user_id
-      t.integer :status, :default => 1
+      t.integer :state, :default => 1
 
       t.timestamps null: false
     end

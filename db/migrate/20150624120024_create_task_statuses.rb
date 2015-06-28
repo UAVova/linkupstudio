@@ -1,6 +1,6 @@
-class CreateTaskStatuses < ActiveRecord::Migration
+class CreateTaskStates < ActiveRecord::Migration
   def change
-    create_table :task_statuses do |t|
+    create_table :task_states do |t|
       t.string :title
       t.text :description
 

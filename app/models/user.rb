@@ -2,19 +2,25 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :tasks
-  belongs_to :group, foreign_key: "group"
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :telephone, presence: true, phone: true, 
   									    length: { maximum: 25 }
   validates :username,  presence: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }, 
   									    length: { minimum: 3, maximum: 16 }
+  before_save :set_role
+
+  ROLES = %i[admin moderator user banned]
 
   def password_required?
     super && provider.blank?
   end
 
   private
+
+    def set_role
+      self.role = "user"
+    end
 
     def self.from_omniauth(auth)
     	where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
