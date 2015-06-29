@@ -5,6 +5,7 @@
           <th>Title</th>
           <th>Description</th>
           <th>Status</th>
+          <th>Owner</th>
           <th>Link</th>
         </tr>
       </thead>
@@ -29,6 +30,7 @@
           <td><%= task.title %></td>
           <td><%= truncate(task.content, :length => 50) %></td>
           <td><%= task.task_state.title %></td>
+          <td><%= link_to task.user.username, user_path(task.user)%></td>
           <td><%= link_to 'Show', task_path(task.token) %> <%= link_to 'Edit', edit_task_path(task.token) %></td>
         </tr>
         <% end %>

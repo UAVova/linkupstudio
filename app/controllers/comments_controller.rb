@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
 	    @comment = Comment.new(comment_params)
 	    @comment.task = @task
 	  	@comment.user_id = current_user.id
+	  	UserMailer.comment_notification(current_user, @task).deliver_now if current_user.role == "admin"
 	    if @comment.save
 	      redirect_to task_path(@task.token), :flash => { :success => "Comment successfully added" }
 	    else

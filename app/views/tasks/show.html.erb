@@ -2,6 +2,22 @@
 <h2><%= @task.title%></h2>
 <p  class="task-details"><span class="glyphicon glyphicon-time"></span> <%= @task.created_at.strftime("Posted on %d/%m/%Y") %> at <%= @task.created_at.strftime("%H:%M") %>, by <%= link_to @task.user.username, @task.user %> </p>
 <p class="content"><%= @task.content %></p>
+<p class="images">
+  <% if @task.pictures.count > 0 %>
+   <h4>Attached Images</h4>
+      <% @task.pictures.each do |picture| %>
+        <a href="<%="/system#{picture.image.url}"%>" target="_blank"><img src="<%="/system#{picture.image.url(:thumb)}"%>"></a>
+      <% end %>
+   <% end %>
+</p>
+<p class="documents">
+  <% if @task.attachments.count > 0 %>
+   <h4>Attached Images</h4>
+      <% @task.attachments.each do |attachment| %>
+        <p><a href="<%="/system#{attachment.document.url}"%>" target="_blank"><%= attachment.document_file_name %></a></p>
+      <% end %>
+   <% end %>
+</p>
 <hr></hr>
 <% @task.comments.each do |comment| %>
 <h4>Comment posted by <%= link_to comment.user.username, comment.user %></h4>

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'users/:id' => 'users#show', :as => :user
   end
   get 'mytasks' => 'tasks#user_tasks', as: 'user_tasks'
+  get 'admin_area'   => 'admin#index',      as: 'admin_area'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

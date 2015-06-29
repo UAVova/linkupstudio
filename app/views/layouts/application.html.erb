@@ -24,6 +24,9 @@
                 <ul class="nav navbar-nav">
                     <% if user_signed_in? %>
                       <%= render 'layouts/users_menu' %>
+                      <% if current_user.role == "admin" %>
+                        <%= render 'layouts/admin_menu' %>
+                      <% end %>
                     <% else %>
                       <li>
                           <%= link_to "Main page", root_path %>
