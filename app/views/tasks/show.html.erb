@@ -1,1 +1,15 @@
-<%= @task.inspect %>
+<div class="task">
+<h2><%= @task.title%></h2>
+<p  class="task-details"><span class="glyphicon glyphicon-time"></span> <%= @task.created_at.strftime("Posted on %d/%m/%Y") %> at <%= @task.created_at.strftime("%H:%M") %>, by <%= link_to @task.user.username, @task.user %> </p>
+<p class="content"><%= @task.content %></p>
+<hr></hr>
+<% @task.comments.each do |comment| %>
+<h4>Comment posted by <%= link_to comment.user.username, comment.user %></h4>
+<p class="content"><%= comment.content %></p>
+<hr>
+<% end %>
+<% if can? :create, Comment %>
+  <%= render 'comment_form' %>
+<% end %>
+
+</div>

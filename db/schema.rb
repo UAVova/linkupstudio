@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628122444) do
-
-  create_table "actions", force: :cascade do |t|
-    t.string "name", limit: 255
-  end
+ActiveRecord::Schema.define(version: 20150628223802) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "entity_id",             limit: 4
@@ -30,20 +26,10 @@ ActiveRecord::Schema.define(version: 20150628122444) do
 
   add_index "attachments", ["entity_type", "entity_id"], name: "index_attachments_on_entity_type_and_entity_id", using: :btree
 
-  create_table "group_permissions", force: :cascade do |t|
-    t.integer "permission_id", limit: 4
-    t.integer "group_id",      limit: 4
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string "title", limit: 255
-  end
-
-  create_table "permissions", force: :cascade do |t|
-    t.integer "action_id",     limit: 4
-    t.string  "subject_class", limit: 255
-    t.integer "subject_id",    limit: 4
-    t.integer "group_id",      limit: 4
+  create_table "comments", force: :cascade do |t|
+    t.string  "content", limit: 255
+    t.integer "user_id", limit: 4
+    t.integer "task_id", limit: 4
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -57,9 +43,9 @@ ActiveRecord::Schema.define(version: 20150628122444) do
     t.datetime "image_updated_at"
   end
 
-  add_index "pictures", ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+  add_index "pictures", ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id", using: :btree
 
-  create_table "task_statuses", force: :cascade do |t|
+  create_table "task_states", force: :cascade do |t|
     t.string   "title",       limit: 255
     t.text     "description", limit: 65535
     t.datetime "created_at",                null: false
@@ -67,17 +53,13 @@ ActiveRecord::Schema.define(version: 20150628122444) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "title",              limit: 255
-    t.text     "content",            limit: 65535
-    t.integer  "user_id",            limit: 4
-    t.integer  "status",             limit: 4,     default: 1
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
-    t.datetime "image_updated_at"
-    t.string   "token",              limit: 255
+    t.string   "title",      limit: 255
+    t.text     "content",    limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.integer  "state",      limit: 4,     default: 1
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "token",      limit: 255
   end
 
   create_table "users", force: :cascade do |t|
@@ -97,7 +79,6 @@ ActiveRecord::Schema.define(version: 20150628122444) do
     t.string   "telephone",              limit: 255
     t.string   "uid",                    limit: 255
     t.string   "provider",               limit: 255
-    t.integer  "group",                  limit: 4,   default: 1
     t.string   "role",                   limit: 255
   end
 

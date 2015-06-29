@@ -1,10 +1,11 @@
 class Ability
   include CanCan::Ability
+  @current_user = nil
 
   def initialize(user)
-    user ||= User.new
-    if user.role && (respond_to? user.role)
-      self.send(user.role)
+    @current_user = user || User.new
+    if @current_user.role && (respond_to? @current_user.role)
+      self.send(@current_user.role)
     else
       can :see, :tasks
     end
@@ -15,7 +16,13 @@ class Ability
   end
 
   def user
-    can :read, Task, state: 2
+    can [:read, :edit], Task do |task|
+      task.state == 2 || task.user_id = @current_user.id
+    end
+    can :see, :tasks
+    can :create, Comment do |comment|
+     comment.user_id @current_user.id || comment.task.user.id == @current_user.id
+    end
   end
 
 end

@@ -1,0 +1,36 @@
+<table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @tasks.each_with_index do |task, index| %>
+          <%
+          case task.state
+          when 1
+            style = "warning"
+          when 2
+            style = "info"
+          when 3 
+            style = "success"
+          when 4 
+            style = "danger"
+          else
+            style = ""
+          end
+           %>
+        <tr class="<%= style %>">
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= task.title %></td>
+          <td><%= truncate(task.content, :length => 50) %></td>
+          <td><%= task.task_state.title %></td>
+          <td><%= link_to 'Show', edit_task_path(task.token) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>

@@ -1,0 +1,86 @@
+<%= nested_form_for @task, html: { multipart: true, class: "col-xs-9 form-horizontal" } do |f| %>
+  <% if @task.errors.any? %>
+    <div id="errors_explanation">
+      <h2> <%= pluralize(@task.errors.count, "error") %> need to be fixed </h2>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  <fieldset>
+    <div id="legend">
+      <legend class="">Edit task <%= @task.id %></legend>
+    </div>
+    <div class="control-group">
+      <%= f.label :title, class: "control-label" %>
+      <div class="controls">
+        <%= f.text_field :title, class: "form-control" %>
+        <p class="help-block">Title of your request</p>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :content, "Describe your problem", class: "control-label" %>
+      <div class="controls">
+        <%= f.text_area :content, rows: 10, class: "form-control" %>
+        <p class="help-block">Please, provide description that most fully describes your problem</p>
+      </div>
+    </div>
+    <% if @task.pictures.count > 0 %>
+      <h4>Attached Images</h4>
+      <% @task.pictures.each do |picture| %>
+        <p>
+          <%= link_to picture.image.url, picture.image.path %> 
+          <% if can? :update_task_attachment, @task %>
+            <%= check_box_tag "[task][pictures_to_delete][]", picture.id %> Delete
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+    <% if @task.attachments.count > 0 %>
+      <h4>Attached Images</h4>
+      <% @task.attachments.each do |attachment| %>
+        <p>
+          <%= link_to attachment.document.url, attachment.document.url %> 
+          <% if can? :update_task_attachment, @task %>
+            <%= check_box_tag "[task][attachments_to_delete][]", attachment.id %> Delete
+          <% end %>
+        </p>
+      <% end %>
+    <% end %>
+    <% if can? :update_task_status, @task %>
+    <h4>Task Status:</h4>
+      <p><%= f.select :state, options_from_collection_for_select(@states, 'id', 'title', @task.state) %></p>
+    <% end %>
+    <h4>Attach images:</h4>
+    <div class="control-group">
+    <%= f.fields_for :pictures, Picture.new do |t| %>
+        <div class="controls">
+          <%= t.file_field :image %>
+          <p class="help-block">Only images is allowed for uploading</p>
+        </div>
+    <% end %>
+    <p><%= f.link_to_add "Add more image", :pictures %></p>
+    </div>
+
+    <h4>Attach text files:</h4>
+    <div class="control-group">
+    <%= f.fields_for :attachments, Attachment.new do |d| %>
+        <div class="controls">
+          <%= d.file_field :document %>
+          <p class="help-block">Only text documents is allowed for uploading</p>
+        </div>
+    <% end %>
+    <p><%= f.link_to_add "Add more image", :attachments %></p>
+    </div>
+
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <%= f.submit "Submit", class: "btn btn-success btn-lg btn-block" %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

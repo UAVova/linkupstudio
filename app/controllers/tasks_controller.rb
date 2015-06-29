@@ -14,6 +14,12 @@ class TasksController < ApplicationController
     @task = Task.new
   end
   
+  def edit
+    @task = Task.find_by token: params[:id]
+    @states = TaskState.all
+    authorize! :edit, @task
+  end
+
   def create
     @task = Task.new(task_params)
     @task.user_id = current_user.id
@@ -24,11 +30,29 @@ class TasksController < ApplicationController
     end
   end
 
+  def update
+    
+    @task = Task.find(params[:id])
+
+    if @task.update(task_params)
+      redirect_to task_path(@task.token)
+    else
+      render 'edit'
+    end
+  end
+
+  def user_tasks
+    @tasks = Task.where user_id: current_user.id if user_signed_in?
+  end
+
   private
 
     def task_params
-      params.require(:task).permit(:title, :content, :avatar, files_attributes:    [:document],
-                                                              pictures_attributes: [:image] )
+      params.require(:task).permit( :title, :content,  :avatar, :state, :pictures_to_delete    => [],
+                                                                        :attachments_to_delete => [],
+                                                                        attachments_attributes:   [:document],
+                                                                        pictures_attributes:      [:image],
+                                                                        comments_attributes:      [:content] )
     end
 
 end
